@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
+import LocationCard from './LocationCard';
 
 export default function CharacterCard(props) {
 	const {
@@ -26,12 +27,10 @@ export default function CharacterCard(props) {
 						episode: episodeResponse.data
 					});
 				})
-				.catch(error => console.error(error));
+				.catch(error => console.error('error', error));
 		}
-		return () => {
-			setMoreInfo([])
-		};
-	}, [location.url, episode])
+		return () => { };
+	}, [])
 	return (
 		<div className="character">
 			<div className="content">
@@ -40,16 +39,14 @@ export default function CharacterCard(props) {
 				<div><b>Species:</b> {species}</div>
 				{type ? <div><b>Type:</b> {type}</div> : null}
 				{status !== "unknown" ? <div><b>Status:</b> {status}</div> : null}
-				<div className="location">
-					<div><b>Location:</b> {moreInfo.location.name}</div>
-					<div><b>Dimension:</b> {moreInfo.location.dimension}</div>
-					<div><b>Type:</b> {moreInfo.location.type}</div>
-				</div>
-				<div className="episode">
-					<div><b>Episode:</b> {moreInfo.episode.episode}</div>
-					<div><b>Title:</b> {moreInfo.episode.name}</div>
-					<div><b>Air Date:</b> {moreInfo.episode.air_date}</div>
-				</div>
+				{moreInfo.location.name ? <LocationCard {...moreInfo.location} /> : null}
+				{moreInfo.episode.name ?
+					<div className="episode">
+						<div><b>Episode:</b> {moreInfo.episode.episode}</div>
+						<div><b>Title:</b> {moreInfo.episode.name}</div>
+						<div><b>Air Date:</b> {moreInfo.episode.air_date}</div>
+					</div> : null
+				}
 			</div>
 			<img src={image} alt={type ? type : name} />
 		</div>

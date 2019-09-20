@@ -19,10 +19,7 @@ const Form = styled.div`
 `;
 
 export default function SearchForm(props) {
-	const { search, setSearch } = props
-	const handleChange = e => {
-		setSearch({ ...search, [e.target.id]: e.target.value });
-	}
+	const { search, handleChange } = props
 	return (
 		<section className="search-form">
 			<h3>Search by</h3>

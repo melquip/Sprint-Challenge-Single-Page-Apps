@@ -44,7 +44,6 @@ export default function CharacterList(props) {
 		status: '',
 		type: '',
 	});
-	//const [searchResults, setSearchResults] = useState([]);
 
 	useEffect(() => {
 		// TODO: Add API Request here - must run in `useEffect`
@@ -54,46 +53,20 @@ export default function CharacterList(props) {
 				setCharacters(res.data.results);
 			})
 			.catch(error => console.error(error));
-		return () => {
-			setCharacters([]);
-		};
+		return () => {};
 		//  Important: verify the 2nd `useEffect` parameter: the dependancies array!
-	}, [
-		search.name,
-		search.gender,
-		search.species,
-		search.status,
-		search.type
-	]);
+	}, [search]);
 
-	/*
-	useEffect(() => {
-		if (search !== '') {
-			console.log("SEARCHING");
-			let _searchResults = characters.filter(char => (
-				char.name.search(search) !== -1 ||
-				char.gender.search(search) !== -1 ||
-				char.species.search(search) !== -1 ||
-				char.type.search(search) !== -1 ||
-				char.status.search(search) !== -1
-			));
-			setSearchResults(_searchResults);
-		} else {
-			setSearch('');
-			setSearchResults([]);
-		}
-		return () => {
-		};
-	}, [search])
-*/
-	//const charList = (searchResults.length > 0 ? searchResults : characters);
+	const handleChange = e => {
+		setSearch({ ...search, [e.target.id]: e.target.value });
+	}
 
 	return (
 		<section className="character-list">
 			<h2>Character List</h2>
 			<SearchForm
 				search={search}
-				setSearch={setSearch}
+				handleChange={handleChange}
 			/>
 			<Characters>
 				{
