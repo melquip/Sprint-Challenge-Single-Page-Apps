@@ -14,9 +14,9 @@ export default function CharacterCard(props) {
 			<div>Name: {name}</div>
 			<div>Gender: {gender}</div>
 			<div>Species: {species}</div>
-			<div>Type: {type}</div>
-			<div>Status: {status}</div>
-			<img src={image} alt={type}/>
+			{type ? <div>Type: {type}</div> : null }
+			{status !== "unknown" ? <div>Status: {status}</div> : null }
+			<img src={image} alt={type ? type : name}/>
 		</div>
 	);
 }
