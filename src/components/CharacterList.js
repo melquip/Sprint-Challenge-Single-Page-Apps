@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import CharacterCard from './CharacterCard';
 import SearchForm from './SearchForm';
 
+import useLocalStorage from './useLocalStorage';
+
 const Characters = styled.div`
 	display: flex;
 	flex-flow: row wrap;
@@ -35,9 +37,9 @@ const Characters = styled.div`
 }
 `;
 
-export default function CharacterList(props) {
+function CharacterList(props) {
 	const [characters, setCharacters] = useState([]);
-	const [search, setSearch] = useState({
+	const [search, setSearch] = useLocalStorage('rickmortysearch', {
 		name: '',
 		gender: '',
 		species: '',
@@ -76,3 +78,5 @@ export default function CharacterList(props) {
 		</section>
 	);
 }
+
+export default CharacterList
