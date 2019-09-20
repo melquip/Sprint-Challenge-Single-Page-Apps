@@ -2,14 +2,17 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 
 import CharacterCard from './CharacterCard';
+import SearchForm from './SearchForm';
 
 export default function CharacterList() {
 	const [characters, setCharacters] = useState([]);
 	useEffect(() => {
 		// TODO: Add API Request here - must run in `useEffect`
-		axios.get('https://rick-api.herokuapp.com/api/')
+		axios.get('https://rickandmortyapi.com/api/character/')
+			//https://rick-api.herokuapp.com/api/
+			//https://rickandmortyapi.com/api/character/
 			.then(res => {
-				setCharacters(res.characters);
+				setCharacters(res.data.results);
 			})
 			.catch(error => console.error(error))
 		return () => {
@@ -20,9 +23,11 @@ export default function CharacterList() {
 
 	return (
 		<section className="character-list">
-			<h2>TODO: `array.map()` over your state here!</h2>
+			<SearchForm />
+			<h2>Character List</h2>
 			{
-				characters.map(char => <CharacterCard data={char} />)
+				characters.map(char =>
+					<CharacterCard key={char.id} data={char} />)
 			}
 		</section>
 	);
